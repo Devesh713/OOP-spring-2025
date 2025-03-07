@@ -25,10 +25,17 @@ public:
 };
 
 int main() {
-    Employee emp("Devesh", 80000);
-    Manager mgr("Conor", 70000, 10000);
+    string name;
+    float salary, bonus;
     
-    emp.displayDetails();
+    cout << "Enter manager's name: ";
+    getline(cin, name);
+    cout << "Enter salary: ";
+    cin >> salary;
+    cout << "Enter bonus: ";
+    cin >> bonus;
+    
+    Manager mgr(name, salary, bonus);
     cout << "-----------------" << endl;
     mgr.displayDetails();
     
