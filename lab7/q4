@@ -1,0 +1,94 @@
+#include <iostream>
+using namespace std;
+
+class Person {
+protected:
+    string name, id, address, phoneNumber, email;
+
+public:
+    Person(string n, string i, string a, string p, string e)
+        : name(n), id(i), address(a), phoneNumber(p), email(e) {}
+
+    virtual void displayInfo() {
+        cout << "Name: " << name << "\nID: " << id << "\nAddress: " << address << "\nPhone: " << phoneNumber << "\nEmail: " << email << "\n";
+    }
+};
+
+class Student : public Person {
+private:
+    string coursesEnrolled;
+    double GPA;
+    int enrollmentYear;
+
+public:
+    Student(string n, string i, string a, string p, string e, string courses, double gpa, int year)
+        : Person(n, i, a, p, e), coursesEnrolled(courses), GPA(gpa), enrollmentYear(year) {}
+
+    void displayInfo() override {
+        Person::displayInfo();
+        cout << "Courses: " << coursesEnrolled << "\nGPA: " << GPA << "\nEnrollment Year: " << enrollmentYear << "\n";
+    }
+};
+
+class Professor : public Person {
+private:
+    string department, coursesTaught;
+    double salary;
+
+public:
+    Professor(string n, string i, string a, string p, string e, string dept, string courses, double sal)
+        : Person(n, i, a, p, e), department(dept), coursesTaught(courses), salary(sal) {}
+
+    void displayInfo() override {
+        Person::displayInfo();
+        cout << "Department: " << department << "\nCourses Taught: " << coursesTaught << "\nSalary: $" << salary << "\n";
+    }
+};
+
+class Staff : public Person {
+private:
+    string department, position;
+    double salary;
+
+public:
+    Staff(string n, string i, string a, string p, string e, string dept, string pos, double sal)
+        : Person(n, i, a, p, e), department(dept), position(pos), salary(sal) {}
+
+    void displayInfo() override {
+        Person::displayInfo();
+        cout << "Department: " << department << "\nPosition: " << position << "\nSalary: $" << salary << "\n";
+    }
+};
+
+class Course {
+private:
+    string courseId, courseName, instructor, schedule;
+    int credits;
+
+public:
+    Course(string id, string name, int cr, string instr, string sched)
+        : courseId(id), courseName(name), credits(cr), instructor(instr), schedule(sched) {}
+
+    void registerStudent(Student &s) {
+        cout << s.name << " registered for " << courseName << "\n";
+    }
+
+    void displayCourse() {
+        cout << "Course ID: " << courseId << "\nCourse Name: " << courseName << "\nCredits: " << credits << "\nInstructor: " << instructor << "\nSchedule: " << schedule << "\n";
+    }
+};
+
+int main() {
+    Student s("Devesh", "S123", "123 Main St", "555-1234", "devesh@example.com", "Math, CS", 3.8, 2022);
+    Professor p("Baqar", "P456", "456 Elm St", "555-5678", "baqar@example.com", "Computer Science", "Algorithms, AI", 85000);
+    Staff st("Shayan", "ST789", "789 Oak St", "555-9101", "shayan@example.com", "Administration", "Manager", 60000);
+    Course c("CS101", "Intro to CS", 3, "Baqar", "MWF 10:00AM");
+
+    s.displayInfo();
+    p.displayInfo();
+    st.displayInfo();
+    c.displayCourse();
+    c.registerStudent(s);
+
+    return 0;
+}
