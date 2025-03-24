@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+class Shape {
+protected:
+    int x, y;
+    string color;
+    double borderThickness;
+
+public:
+    Shape(int xPos, int yPos, string col, double border = 1.0)
+        : x(xPos), y(yPos), color(col), borderThickness(border) {}
+
+    virtual void draw() = 0;
+    virtual double calculateArea() = 0;
+    virtual double calculatePerimeter() = 0;
+};
+
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(int xPos, int yPos, string col, double rad)
+        : Shape(xPos, yPos, col), radius(rad) {}
+
+    void draw() override {
+        cout << "Drawing Circle at (" << x << ", " << y << ") with radius " << radius << " and color " << color << "\n";
+    }
+
+    double calculateArea() override {
+        return 3.14 * radius * radius;
+    }
+
+    double calculatePerimeter() override {
+        return 2 * 3.14 * radius;
+    }
+};
+
+class Rectangle : public Shape {
+private:
+    double width, height;
+
+public:
+    Rectangle(int xPos, int yPos, string col, double w, double h)
+        : Shape(xPos, yPos, col), width(w), height(h) {}
+
+    void draw() override {
+        cout << "Drawing Rectangle at (" << x << ", " << y << ") with width " << width << " and height " << height << "\n";
+    }
+
+    double calculateArea() override {
+        return width * height;
+    }
+
+    double calculatePerimeter() override {
+        return 2 * (width + height);
+    }
+};
+
+class Triangle : public Shape {
+private:
+    double base, height, sideA, sideB, sideC;
+
+public:
+    Triangle(int xPos, int yPos, string col, double b, double h, double a, double bSide, double c)
+        : Shape(xPos, yPos, col), base(b), height(h), sideA(a), sideB(bSide), sideC(c) {}
+
+    void draw() override {
+        cout << "Drawing Triangle at (" << x << ", " << y << ") with base " << base << " and height " << height << "\n";
+    }
+
+    double calculateArea() override {
+        return 0.5 * base * height;
+    }
+
+    double calculatePerimeter() override {
+        return sideA + sideB + sideC;
+    }
+};
+
+int main() {
+    Circle c(10, 10, "cyan", 5);
+    Rectangle r(20, 30, "Blue", 10, 15);
+    Triangle t(5, 5, "purple", 6, 8, 5, 7, 9);
+
+    c.draw();
+    cout << "Circle Area: " << c.calculateArea() << "\n";
+    cout << "Circle Perimeter: " << c.calculatePerimeter() << "\n";
+
+    r.draw();
+    cout << "Rectangle Area: " << r.calculateArea() << "\n";
+    cout << "Rectangle Perimeter: " << r.calculatePerimeter() << "\n";
+
+    t.draw();
+    cout << "Triangle Area: " << t.calculateArea() << "\n";
+    cout << "Triangle Perimeter: " << t.calculatePerimeter() << "\n";
+
+    return 0;
+}
