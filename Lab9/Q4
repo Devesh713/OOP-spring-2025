@@ -71,3 +71,37 @@ public:
 };
 
 #endif
+
+#include "DigitalWallet.h"
+#include <iostream>
+
+DigitalWallet::DigitalWallet(double initialBalance) : balance(initialBalance) {}
+
+bool DigitalWallet::processPayment(double amount) {
+    if (balance >= amount) {
+        balance -= amount;
+        std::cout << "Digital Wallet Payment of $" << amount << " successful.\n";
+        return true;
+    } else {
+        std::cout << "Digital Wallet Payment failed: Insufficient funds.\n";
+        return false;
+    }
+}
+
+#include <iostream>
+#include "CreditCard.h"
+#include "DigitalWallet.h"
+
+int main() {
+    CreditCard card("1234567812345678");
+    DigitalWallet wallet(150.0);
+
+    PaymentMethod* payment1 = &card;
+    PaymentMethod* payment2 = &wallet;
+
+    payment1->processPayment(75.0);   // Should succeed (valid card)
+    payment2->processPayment(120.0);  // Should succeed
+    payment2->processPayment(50.0);   // Should fail (not enough balance)
+
+    return 0;
+}
