@@ -39,6 +39,7 @@ std::string Book::getISBN() const {
 int main:
 
 #include <iostream>
+using namespace std
 #include "Book.h"
 
 int main() {
