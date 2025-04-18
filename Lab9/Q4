@@ -1,0 +1,73 @@
+#ifndef PAYMENT_METHOD_H
+#define PAYMENT_METHOD_H
+
+class PaymentMethod {
+public:
+    virtual bool processPayment(double amount) = 0;
+    virtual ~PaymentMethod() {}
+};
+
+#endif
+
+#ifndef CREDIT_CARD_H
+#define CREDIT_CARD_H
+
+#include "PaymentMethod.h"
+#include <string>
+
+class CreditCard : public PaymentMethod {
+private:
+    std::string cardNumber;
+
+public:
+    CreditCard(const std::string& number);
+    bool processPayment(double amount) override;
+};
+
+#endif
+
+#include "CreditCard.h"
+#include <iostream>
+
+CreditCard::CreditCard(const std::string& number) : cardNumber(number) {}
+
+bool CreditCard::processPayment(double amount) {
+    if (cardNumber.length() == 16) {
+        std::cout << "Credit Card Payment of $" << amount << " successful.\n";
+        return true;
+    } else {
+        std::cout << "Credit Card Payment failed: Invalid card number.\n";
+        return false;
+    }
+}
+
+#include "CreditCard.h"
+#include <iostream>
+
+CreditCard::CreditCard(const std::string& number) : cardNumber(number) {}
+
+bool CreditCard::processPayment(double amount) {
+    if (cardNumber.length() == 16) {
+        std::cout << "Credit Card Payment of $" << amount << " successful.\n";
+        return true;
+    } else {
+        std::cout << "Credit Card Payment failed: Invalid card number.\n";
+        return false;
+    }
+}
+
+#ifndef DIGITAL_WALLET_H
+#define DIGITAL_WALLET_H
+
+#include "PaymentMethod.h"
+
+class DigitalWallet : public PaymentMethod {
+private:
+    double balance;
+
+public:
+    DigitalWallet(double initialBalance);
+    bool processPayment(double amount) override;
+};
+
+#endif
