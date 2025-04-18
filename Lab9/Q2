@@ -48,6 +48,9 @@ public:
 };
 
 int main() {
+
+#include <iostream>
+using namespace std
     SmartDevice* d1 = new LightBulb();
     SmartDevice* d2 = new Thermostat();
 
