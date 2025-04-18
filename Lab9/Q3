@@ -1,0 +1,52 @@
+Book.h
+#ifndef BOOK_H
+#define BOOK_H
+
+#include <string>
+
+class Book {
+private:
+    std::string title;
+    std::string author;
+    std::string ISBN;
+
+public:
+    Book(const std::string& t, const std::string& a, const std::string& i);
+    std::string getTitle() const;
+    std::string getAuthor() const;
+    std::string getISBN() const;
+};
+
+#endif
+
+Book.cpp
+#include "Book.h"
+
+Book::Book(const std::string& t, const std::string& a, const std::string& i)
+    : title(t), author(a), ISBN(i) {}
+
+std::string Book::getTitle() const {
+    return title;
+}
+
+std::string Book::getAuthor() const {
+    return author;
+}
+
+std::string Book::getISBN() const {
+    return ISBN;
+}
+int main:
+
+#include <iostream>
+#include "Book.h"
+
+int main() {
+    Book book("brainrot", "Devesh Goreja", "9780481734465");
+
+    std::cout << "Title: " << book.getTitle() << "\n";
+    std::cout << "Author: " << book.getAuthor() << "\n";
+    std::cout << "ISBN: " << book.getISBN() << "\n";
+
+    return 0;
+}
