@@ -1,0 +1,76 @@
+#ifndef ACTIVITY_H
+#define ACTIVITY_H
+
+class Activity {
+public:
+    virtual double calculateCaloriesBurned() const = 0;
+    virtual ~Activity() {}
+};
+
+#endif
+
+#ifndef RUNNING_H
+#define RUNNING_H
+
+#include "Activity.h"
+
+class Running : public Activity {
+private:
+    double distance;
+    double time;
+
+public:
+    Running(double d, double t);
+    double calculateCaloriesBurned() const override;
+};
+
+#endif
+
+#include "Running.h"
+
+Running::Running(double d, double t) : distance(d), time(t) {}
+
+double Running::calculateCaloriesBurned() const {
+    return (distance / time) * 60 * 1.036;
+}
+
+#ifndef CYCLING_H
+#define CYCLING_H
+
+#include "Activity.h"
+
+class Cycling : public Activity {
+private:
+    double speed;
+    double time;
+
+public:
+    Cycling(double s, double t);
+    double calculateCaloriesBurned() const override;
+};
+
+#endif
+
+#include "Cycling.h"
+
+Cycling::Cycling(double s, double t) : speed(s), time(t) {}
+
+double Cycling::calculateCaloriesBurned() const {
+    return speed * time * 3.6;
+}
+
+#include <iostream>
+using namespace std
+#include "Running.h"
+#include "Cycling.h"
+
+int main() {
+    Running run(8.0, 40.0);      // 8 km in 40 minutes
+    Cycling bike(22.0, 1.5);     // 22 km/h for 1.5 hours
+
+    cout << "Running calories: " << run.calculateCaloriesBurned() << "\n";
+  
+cout << "Cycling calories: " << bike.calculateCaloriesBurned() << "\n";
+
+    return 0;
+}
