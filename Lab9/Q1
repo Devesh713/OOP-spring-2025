@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+class Vehicle {
+protected:
+    string model;
+    double rate;
+public:
+    Vehicle(const string& m, double r) : model(m), rate(r) {}
+    virtual double getDailyRate() const = 0;
+    virtual void displayDetails() const = 0;
+    virtual ~Vehicle() {}
+};
+
+class Car : public Vehicle {
+public:
+    Car(const string& m, double r) : Vehicle(m, r) {}
+    double getDailyRate() const override {
+        return rate * 1.1;
+    }
+    void displayDetails() const override {
+        cout << "Car Model: " << model << ", Daily Rate: $" << getDailyRate() << endl;
+    }
+};
+
+class Bike : public Vehicle {
+public:
+    Bike(const string& m, double r) : Vehicle(m, r) {}
+    double getDailyRate() const override {
+        return rate * 0.9;
+    }
+    void displayDetails() const override {
+        cout << "Bike Model: " << model << ", Daily Rate: $" << getDailyRate() << endl;
+    }
+};
+
+int main() {
+    Vehicle* v1 = new Car("Honda Civic", 80);
+    Vehicle* v2 = new Bike("Toyota Corolla", 60);
+
+    v1->displayDetails();
+    v2->displayDetails();
+
+    delete v1;
+    delete v2;
+
+    return 0;
+}
