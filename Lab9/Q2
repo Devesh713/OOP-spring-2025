@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+class SmartDevice {
+public:
+    virtual void turnOn() = 0;
+    virtual void turnOff() = 0;
+    virtual void getStatus() const = 0;
+    virtual ~SmartDevice() {}
+};
+
+class LightBulb : public SmartDevice {
+private:
+    bool isOn;
+    int brightness;
+public:
+    LightBulb() : isOn(false), brightness(0) {}
+    void turnOn() override {
+        isOn = true;
+        brightness = 75;
+    }
+    void turnOff() override {
+        isOn = false;
+        brightness = 0;
+    }
+    void getStatus() const override {
+        cout << "LightBulb - State: " << (isOn ? "On" : "Off") << ", Brightness: " << brightness << "%" << endl;
+    }
+};
+
+class Thermostat : public SmartDevice {
+private:
+    bool isOn;
+    double temperature;
+public:
+    Thermostat() : isOn(false), temperature(0.0) {}
+    void turnOn() override {
+        isOn = true;
+        temperature = 22.5;
+    }
+    void turnOff() override {
+        isOn = false;
+        temperature = 0.0;
+    }
+    void getStatus() const override {
+        cout << "Thermostat - State: " << (isOn ? "On" : "Off") << ", Temperature: " << temperature << "°C" << endl;
+    }
+};
+
+int main() {
+    SmartDevice* d1 = new LightBulb();
+    SmartDevice* d2 = new Thermostat();
+
+    d1->turnOn();
+    d2->turnOn();
+
+    d1->getStatus();
+    d2->getStatus();
+
+    d1->turnOff();
+    d2->turnOff();
+
+    d1->getStatus();
+    d2->getStatus();
+
+    delete d1;
+    delete d2;
+
+    return 0;
+}
