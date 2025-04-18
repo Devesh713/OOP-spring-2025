@@ -35,6 +35,8 @@ public:
 };
 
 int main() {
+#include <iostream>
+using namespace std
     Vehicle* v1 = new Car("Honda Civic", 80);
     Vehicle* v2 = new Bike("Toyota Corolla", 60);
 
