@@ -89,6 +89,7 @@ bool DigitalWallet::processPayment(double amount) {
 }
 
 #include <iostream>
+using namespace std
 #include "CreditCard.h"
 #include "DigitalWallet.h"
 
