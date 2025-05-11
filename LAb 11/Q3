@@ -1,0 +1,51 @@
+#include <iostream>
+#include <exception>
+#include <string>
+using namespace std;
+
+class FileException : public exception {
+public:
+    virtual const char* what() const noexcept override {
+        return "File error";
+    }
+};
+
+class FileNotFoundException : public FileException {
+public:
+    const char* what() const noexcept override {
+        return "File not found!";
+    }
+};
+
+class PermissionDeniedException : public FileException {
+public:
+    const char* what() const noexcept override {
+        return "Access denied!";
+    }
+};
+
+void readFile(const string& filename) {
+    if (filename == "missing.txt") throw FileNotFoundException();
+    if (filename == "secret.txt") throw PermissionDeniedException();
+    cout << "Reading '" << filename << "': Success" << endl;
+}
+
+int main() {
+    string files[] = {"document.txt", "missing.txt", "secret.txt"};
+    for (int i = 0; i < 3; i++) {
+        try {
+            cout << "Reading '" << files[i] << "': ";
+            readFile(files[i]);
+        } catch (const PermissionDeniedException& e) {
+            cout << "Permission DeniedException" << endl;
+            cout << e.what() << endl;
+        } catch (const FileNotFoundException& e) {
+            cout << "FileNotFoundException" << endl;
+            cout << e.what() << endl;
+        } catch (const FileException& e) {
+            cout << "FileException" << endl;
+            cout << e.what() << endl;
+        }
+    }
+    return 0;
+}
