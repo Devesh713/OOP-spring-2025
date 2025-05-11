@@ -1,0 +1,44 @@
+#include <iostream>
+#include <exception>
+using namespace std;
+
+class InsufficientFundsException : public exception {
+    string message;
+public:
+    InsufficientFundsException(double deficit) {
+        char buffer[50];
+        sprintf(buffer, "Deficit: $%.2f", deficit);
+        message = buffer;
+    }
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+};
+
+template <typename T>
+class BankAccount {
+    T balance;
+public:
+    BankAccount(T b) : balance(b) {}
+    void withdraw(T amount) {
+        if (amount > balance)
+            throw InsufficientFundsException((double)(amount - balance));
+        balance -= amount;
+    }
+    void display() {
+        printf("Balance: $%.2f\n", (double)balance);
+    }
+};
+
+int main() {
+    BankAccount<double> account(500.0);
+    account.display();
+    try {
+        cout << "Withdraw $600: ";
+        account.withdraw(600.0);
+    } catch (const InsufficientFundsException& e) {
+        cout << "InsufficientFundsException" << endl;
+        cout << "- " << e.what() << endl;
+    }
+    return 0;
+}
